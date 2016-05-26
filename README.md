@@ -1,3 +1,3 @@
 # Udacity
 
-Test Projexts for Udacity Machine Learning Course
+Practice projects for udacity machine learning
