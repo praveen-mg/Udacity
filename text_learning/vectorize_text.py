@@ -7,6 +7,9 @@ import sys
 
 sys.path.append( "../tools/" )
 from parse_out_email_text import parseOutText
+from nltk.corpus import stopwords
+from sklearn.feature_extraction.text import TfidfVectorizer
+
 
 """
     Starter code to process the emails from Sara and Chris to extract
@@ -25,7 +28,8 @@ from parse_out_email_text import parseOutText
 
 from_sara  = open("from_sara.txt", "r")
 from_chris = open("from_chris.txt", "r")
-
+sw = stopwords.words("english")
+signature = ["sara", "shackleton", "chris", "germani","sshacklensf","cgermannsf"]
 from_data = []
 word_data = []
 
@@ -42,10 +46,23 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
         ### only look at first 200 emails when developing
         ### once everything is working, remove this line to run over full dataset
         temp_counter += 1
-        if temp_counter < 200:
-            path = os.path.join('..', path[:-1])
-            print path
-            email = open(path, "r")
+        #if temp_counter < 200:
+        path = os.path.join('..', path[:-1])
+                #print path
+        email = open(path, "r")
+                
+        text = parseOutText(email)
+                #text = ' '.join([word for word in text.split() if word not in sw])
+                #text = ' '.join([word for word in text.split() if word not in sw])
+        for word in signature:
+            if word in text:
+                text = text.replace(word,"")
+        word_data.append(text)
+        if from_person == from_sara:
+            from_data.append(0)
+        else:
+            from_data.append(1)
+            
 
             ### use parseOutText to extract the text from the opened email
 
@@ -58,6 +75,12 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
 
 
             email.close()
+print word_data[152]
+vectorizer = TfidfVectorizer(stop_words='english')
+vectorizer.fit_transform(word_data)
+vocab = vectorizer.get_feature_names()
+print "Number of words in the lis",len(vocab)
+print "WOrd in 34597 position",vocab[34597]
 
 print "emails processed"
 from_sara.close()
