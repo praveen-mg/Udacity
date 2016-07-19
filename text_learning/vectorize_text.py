@@ -31,7 +31,7 @@ from_chris = open("from_chris.txt", "r")
 sw = stopwords.words("english")
 
 signature = ["sara", "shackleton", "chris", "germani"]
-=======
+
 signature = ["sara", "shackleton", "chris", "germani","sshacklensf","cgermannsf"]
 
 from_data = []
