@@ -11,6 +11,7 @@ import pickle
 import numpy
 import matplotlib.pyplot as plt
 import sys
+from sklearn import cluster
 sys.path.append("../tools/")
 from feature_format import featureFormat, targetFeatureSplit
 
@@ -22,6 +23,7 @@ def Draw(pred, features, poi, mark_poi=False, name="image.png", f1_name="feature
 
     ### plot each cluster with a different color--add more colors for
     ### drawing more than five clusters
+
     colors = ["b", "c", "k", "m", "g"]
     for ii, pp in enumerate(pred):
         plt.scatter(features[ii][0], features[ii][1], color = colors[pred[ii]])
@@ -61,6 +63,7 @@ poi, finance_features = targetFeatureSplit( data )
 for f1, f2 in finance_features:
     plt.scatter( f1, f2 )
 plt.show()
+
 
 ### cluster here; create predictions of the cluster labels
 ### for the data and store them to a list called pred
