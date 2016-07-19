@@ -33,6 +33,7 @@ features_test  = vectorizer.transform(features_test).toarray()
 ### of data points and a large number of features;
 ### train on only 150 events to put ourselves in this regime
 features_train = features_train[:150].toarray()
+print len(features_train)
 labels_train   = labels_train[:150]
 
 
